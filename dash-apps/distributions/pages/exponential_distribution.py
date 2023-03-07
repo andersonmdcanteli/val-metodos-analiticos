@@ -415,6 +415,8 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
         "Densidade": expon.pdf(x, loc=loc, scale=scale)
     })
 
+
+
     try:
         fig = px.line(df_distribution, x=df_distribution.columns[0], y=df_distribution.columns[1], height=height)
     except Exception:

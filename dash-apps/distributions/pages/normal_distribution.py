@@ -191,6 +191,38 @@ layout = html.Div([
         ],lg = 8),
         # Inputs para os dados
         dbc.Col([
+            # Equação
+            dbc.Row([
+                dbc.Col(
+                    html.H4(
+                        dcc.Markdown(
+                            "$f \\left( x \\right) = \\frac{1}{\\sigma \\sqrt{2 \\pi}} e^{-\\frac{1}{2} \\left(\\frac{x- \\mu}{\\sigma} \\right)^{2}}$",
+                            mathjax=True
+                            )
+                    ), style={"textAlign": "center"}
+                ),
+            ]),
+            dbc.Row(
+                dbc.Col(
+                    html.Label("onde:")
+                ),
+            ),
+            dbc.Row([
+                dbc.Col(
+                    dcc.Markdown(
+                        "$\\mu$: é a média populacional;",
+                        mathjax=True
+                        ), style={"textIndent": "2em"}
+                ),
+            ]),
+            dbc.Row([
+                dbc.Col(
+                    dcc.Markdown(
+                        "$\\sigma$: é o desvio padrão populacional;",
+                        mathjax=True
+                        ), style={"textIndent": "2em"}
+                ),
+            ]),
             dbc.Row(
                 dbc.Col(
                     html.H5("Parâmetros da distribuição")
@@ -414,8 +446,6 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
         "x": x,
         "Densidade": norm.pdf(x, loc=loc, scale=scale)
     })
-
-
 
     try:
         fig = px.line(df_distribution, x=df_distribution.columns[0], y=df_distribution.columns[1], height=height)
