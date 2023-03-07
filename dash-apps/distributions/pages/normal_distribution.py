@@ -13,7 +13,7 @@ import dash_mantine_components as dmc
 # --- Third part --- #
 import pandas as pd
 import numpy as np
-from scipy import stats
+from scipy.stats import norm
 from pandas.api.types import is_numeric_dtype
 
 # --- Home Made --- #
@@ -408,18 +408,13 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
     height = 500
 
 
-    x = np.linspace(stats.norm.ppf(0.0001, loc=loc, scale=scale), stats.norm.ppf(0.9999, loc=loc, scale=scale), 1000)
+    x = np.linspace(norm.ppf(0.0001, loc=loc, scale=scale), norm.ppf(0.9999, loc=loc, scale=scale), 1000)
 
     df_distribution = pd.DataFrame({
         "x": x,
-        "Densidade": stats.norm.pdf(x, loc=loc, scale=scale)
+        "Densidade": norm.pdf(x, loc=loc, scale=scale)
     })
 
-    x_data = stats.norm.rvs(loc=loc, scale=scale, size=size, random_state=random)
-    df_data = pd.DataFrame({
-        "x": x_data,
-        "Dados":  stats.norm.pdf(x_data, loc=loc, scale=scale)
-    })
 
 
     try:
@@ -432,6 +427,12 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
     fig['data'][0]['line']['color']='black'
 
     if switch:
+        x_data = norm.rvs(loc=loc, scale=scale, size=size, random_state=random)
+        df_data = pd.DataFrame({
+            "x": x_data,
+            "Dados":  norm.pdf(x_data, loc=loc, scale=scale)
+        })
+
         # adicionando a reta
         fig.add_trace(
             go.Scatter(
@@ -446,6 +447,22 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
                     "<extra></extra>", # removendo a caixa que incomoda a visualização),
                 )
             )
+
+        fig.add_trace(
+            go.Histogram(
+                x=df_data[df_data.columns[0]],
+                histnorm='probability density',
+                name="Histograma amostral",
+                # marker_color="rgba(205, 209, 228, 0.5)",
+                marker_color="rgba(11, 127, 171, 0.5)",
+                hovertemplate =
+                    "x = %{x}<br>" +
+                    "Densidade = %{y}<br>" +
+                    "<extra></extra>", # removendo a caixa que incomoda a visualização),
+
+                ),
+            )
+
 
     fig.add_vline(x=0, line_width=2, line_dash="dot", line_color="dimgray")
     fig.add_hline(y=0, line_width=2, line_dash="dot", line_color="dimgray")
