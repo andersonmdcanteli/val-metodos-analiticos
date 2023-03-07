@@ -1,5 +1,5 @@
 from dash import Dash, dcc, html, Input, Output, callback
-from pages import home, about, page_not_found, normal_distribution
+from pages import home, about, page_not_found, normal_distribution, exponential_distribution
 from pages import footer
 from datetime import date
 import dash_bootstrap_components as dbc
@@ -27,6 +27,7 @@ server = app.server
 navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Normal", href="/normal-distribution")),
+        dbc.NavItem(dbc.NavLink("Exponencial", href="/exponential-distribution")),
         dbc.NavItem(dbc.NavLink(
                         html.I(className="fas fa-mug-hot", style={"color": 'yellow'}),
                         href="/about")),
@@ -58,6 +59,8 @@ def display_page(pathname):
         return home.layout
     elif pathname == "/normal-distribution":
         return normal_distribution.layout
+    elif pathname == "/exponential-distribution":
+        return exponential_distribution.layout
     elif pathname == '/home':
         return home.layout
     elif pathname == '/about':

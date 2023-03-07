@@ -88,7 +88,7 @@ layout = html.Div([
             align="center"
         ),
         dbc.Col(
-            html.H2("Distribuição Normal"),
+            html.H2("Distribuição Exponencial"),
             width = {"size": 10},
             align = "center"
         ),
@@ -104,7 +104,7 @@ layout = html.Div([
             # linha para o gráfico
             dbc.Row(
                 dbc.Col(
-                    dcc.Graph(id="normdist-plot", mathjax=True, config=configuracoes_grafico),
+                    dcc.Graph(id="expondist-plot", mathjax=True, config=configuracoes_grafico),
 
                 )
             ),
@@ -125,7 +125,7 @@ layout = html.Div([
                         dbc.Col([
                             dbc.Row(
                                 dbc.Col(
-                                    dbc.Input(id="normdist-xmin-input", type="number", value=-5.1, autofocus=False, debounce=False,
+                                    dbc.Input(id="expondist-xmin-input", type="number", value=-.5, autofocus=False, debounce=False,
                                     persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE)
                                     )
                                 ),
@@ -136,7 +136,7 @@ layout = html.Div([
                         dbc.Col([
                             dbc.Row(
                                 dbc.Col(
-                                    dbc.Input(id="normdist-xmax-input", type="number", value=5.1, autofocus=False, debounce=False,
+                                    dbc.Input(id="expondist-xmax-input", type="number", value=10.1, autofocus=False, debounce=False,
                                     persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE)
                                     )
                                 ),
@@ -147,7 +147,7 @@ layout = html.Div([
                         dbc.Col([
                             dbc.Row(
                                 dbc.Col(
-                                    dbc.Input(id="normdist-ymin-input", type="number", value=-.1, autofocus=False, debounce=False,
+                                    dbc.Input(id="expondist-ymin-input", type="number", value=-.1, autofocus=False, debounce=False,
                                     persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE)
                                     )
                                 ),
@@ -158,7 +158,7 @@ layout = html.Div([
                         dbc.Col([
                             dbc.Row(
                                 dbc.Col(
-                                    dbc.Input(id="normdist-ymax-input", type="number", value=0.5, autofocus=False, debounce=False,
+                                    dbc.Input(id="expondist-ymax-input", type="number", value=1.25, autofocus=False, debounce=False,
                                     persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE)
                                     )
                                 ),
@@ -181,7 +181,7 @@ layout = html.Div([
                         position="top", transition="slide-left", transitionDuration=300,
                         offset=3,
                         children=dmc.Switch(label="", onLabel="Sim", offLabel="Não", checked=True, size="lg", color="teal",
-                                        id="normdist-switch", persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE),
+                                        id="expondist-switch", persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE),
                         color="gray", withArrow=True,
                     ), width="auto", align="center", style={"textAlign": "center"}
                 ),
@@ -205,7 +205,7 @@ layout = html.Div([
                         dbc.Col([
                             dbc.Row(
                                 dbc.Col(
-                                    dbc.Input(id="normdist-loc-input", type="number", value=0, step=.1, autofocus=False, debounce=False,
+                                    dbc.Input(id="expondist-loc-input", type="number", value=0, step=.1, autofocus=False, debounce=False,
                                     persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE)
                                     )
                                 ),
@@ -216,7 +216,7 @@ layout = html.Div([
                         dbc.Col([
                             dbc.Row(
                                 dbc.Col(
-                                    dbc.Input(id="normdist-scale-input", type="number", value=1, min=0, step=.1, autofocus=False, debounce=False,
+                                    dbc.Input(id="expondist-scale-input", type="number", value=1, min=0, step=.1, autofocus=False, debounce=False,
                                     persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE)
                                     )
                                 ),
@@ -242,7 +242,7 @@ layout = html.Div([
                             dbc.Col([
                                 dbc.Row(
                                     dbc.Col(
-                                        dbc.Input(id="normdist-size-input", type="number", value=20, step=1, min=0, autofocus=False, debounce=False,
+                                        dbc.Input(id="expondist-size-input", type="number", value=20, step=1, min=0, autofocus=False, debounce=False,
                                         persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE)
                                         )
                                     ),
@@ -253,7 +253,7 @@ layout = html.Div([
                             dbc.Col([
                                 dbc.Row(
                                     dbc.Col(
-                                        dbc.Input(id="normdist-random-input", type="number", value=42, step=1, min=0, autofocus=False, debounce=False,
+                                        dbc.Input(id="expondist-random-input", type="number", value=42, step=1, min=0, autofocus=False, debounce=False,
                                         persistence_type=PERSISTENCE_TYPE, persistence=PERSISTENCE)
                                         )
                                     ),
@@ -264,12 +264,12 @@ layout = html.Div([
                         lg = 10
                     ),
                 ], justify="center",),
-            ], id="normdist-param-div"),
+            ], id="expondist-param-div"),
 
             # alert
             dbc.Row(
                 dbc.Col(
-                    id="normdist-alert"
+                    id="expondist-alert"
                 )
             )
         ])
@@ -285,8 +285,8 @@ layout = html.Div([
 
 
 @callback(
-    Output(component_id="normdist-param-div", component_property="style"),
-    Input(component_id="normdist-switch", component_property="checked"),
+    Output(component_id="expondist-param-div", component_property="style"),
+    Input(component_id="expondist-switch", component_property="checked"),
 )
 def toggle_sample(switch):
     if switch:
@@ -296,17 +296,17 @@ def toggle_sample(switch):
 
 
 @callback(
-    Output(component_id="normdist-plot", component_property="figure"),
-    Output(component_id="normdist-alert", component_property="children"),
-    Input(component_id="normdist-xmin-input", component_property="value"),
-    Input(component_id="normdist-xmax-input", component_property="value"),
-    Input(component_id="normdist-ymin-input", component_property="value"),
-    Input(component_id="normdist-ymax-input", component_property="value"),
-    Input(component_id="normdist-loc-input", component_property="value"),
-    Input(component_id="normdist-scale-input", component_property="value"),
-    Input(component_id="normdist-size-input", component_property="value"),
-    Input(component_id="normdist-random-input", component_property="value"),
-    Input(component_id="normdist-switch", component_property="checked"),
+    Output(component_id="expondist-plot", component_property="figure"),
+    Output(component_id="expondist-alert", component_property="children"),
+    Input(component_id="expondist-xmin-input", component_property="value"),
+    Input(component_id="expondist-xmax-input", component_property="value"),
+    Input(component_id="expondist-ymin-input", component_property="value"),
+    Input(component_id="expondist-ymax-input", component_property="value"),
+    Input(component_id="expondist-loc-input", component_property="value"),
+    Input(component_id="expondist-scale-input", component_property="value"),
+    Input(component_id="expondist-size-input", component_property="value"),
+    Input(component_id="expondist-random-input", component_property="value"),
+    Input(component_id="expondist-switch", component_property="checked"),
 )
 def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
 
@@ -408,17 +408,17 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
     height = 500
 
 
-    x = np.linspace(stats.norm.ppf(0.0001, loc=loc, scale=scale), stats.norm.ppf(0.9999, loc=loc, scale=scale), 1000)
+    x = np.linspace(stats.expon.ppf(0.0001, loc=loc, scale=scale), stats.expon.ppf(0.9999, loc=loc, scale=scale), 1000)
 
     df_distribution = pd.DataFrame({
         "x": x,
-        "Densidade": stats.norm.pdf(x, loc=loc, scale=scale)
+        "Densidade": stats.expon.pdf(x, loc=loc, scale=scale)
     })
 
-    x_data = stats.norm.rvs(loc=loc, scale=scale, size=size, random_state=random)
+    x_data = stats.expon.rvs(loc=loc, scale=scale, size=size, random_state=random)
     df_data = pd.DataFrame({
         "x": x_data,
-        "Dados":  stats.norm.pdf(x_data, loc=loc, scale=scale)
+        "Dados":  stats.expon.pdf(x_data, loc=loc, scale=scale)
     })
 
 
@@ -428,7 +428,7 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
         fig = px.line(df_distribution, x=df_distribution.columns[0], y=df_distribution.columns[1], height=height)
 
     fig['data'][0]['showlegend'] = True
-    fig['data'][0]['name'] = 'Dist. Normal'
+    fig['data'][0]['name'] = 'Dist. Exponencial'
     fig['data'][0]['line']['color']='black'
 
     if switch:
