@@ -1,7 +1,7 @@
 ### ------ IMPORTS ------ ###
-import base64
+# import base64
 import numbers
-import io
+# import io
 
 # --- dash --- #
 from dash import callback, dcc, html, Input, Output, State, dash_table
@@ -13,7 +13,7 @@ import dash_mantine_components as dmc
 # --- Third part --- #
 import pandas as pd
 import numpy as np
-from scipy import stats
+from scipy.stats import expon
 from pandas.api.types import is_numeric_dtype
 
 # --- Home Made --- #
@@ -408,19 +408,12 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
     height = 500
 
 
-    x = np.linspace(stats.expon.ppf(0.0001, loc=loc, scale=scale), stats.expon.ppf(0.9999, loc=loc, scale=scale), 1000)
+    x = np.linspace(expon.ppf(0.0001, loc=loc, scale=scale), expon.ppf(0.9999, loc=loc, scale=scale), 1000)
 
     df_distribution = pd.DataFrame({
         "x": x,
-        "Densidade": stats.expon.pdf(x, loc=loc, scale=scale)
+        "Densidade": expon.pdf(x, loc=loc, scale=scale)
     })
-
-    x_data = stats.expon.rvs(loc=loc, scale=scale, size=size, random_state=random)
-    df_data = pd.DataFrame({
-        "x": x_data,
-        "Dados":  stats.expon.pdf(x_data, loc=loc, scale=scale)
-    })
-
 
     try:
         fig = px.line(df_distribution, x=df_distribution.columns[0], y=df_distribution.columns[1], height=height)
@@ -432,6 +425,11 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
     fig['data'][0]['line']['color']='black'
 
     if switch:
+        x_data = expon.rvs(loc=loc, scale=scale, size=size, random_state=random)
+        df_data = pd.DataFrame({
+            "x": x_data,
+            "Dados":  expon.pdf(x_data, loc=loc, scale=scale)
+        })
         # adicionando a reta
         fig.add_trace(
             go.Scatter(
