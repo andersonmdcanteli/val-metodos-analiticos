@@ -445,6 +445,21 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
                 )
             )
 
+        fig.add_trace(
+            go.Histogram(
+                x=df_data[df_data.columns[0]],
+                histnorm='probability density',
+                name="Histograma amostral",
+                # marker_color="rgba(205, 209, 228, 0.5)",
+                marker_color="rgba(11, 127, 171, 0.5)",
+                hovertemplate =
+                    "x = %{x}<br>" +
+                    "Densidade = %{y}<br>" +
+                    "<extra></extra>", # removendo a caixa que incomoda a visualização),
+
+                ),
+            )
+
     fig.add_vline(x=0, line_width=2, line_dash="dot", line_color="dimgray")
     fig.add_hline(y=0, line_width=2, line_dash="dot", line_color="dimgray")
 
