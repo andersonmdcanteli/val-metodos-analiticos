@@ -17,7 +17,11 @@ Cada distribuição é apresentada em uma página diferente, sendo possível alt
 
 <br>
 
+Por enquanto, estão adicionadas as seguintes distribuições:
 
+- Normal;
+- Exponencial;
+- Uniforme;
 
 
 
