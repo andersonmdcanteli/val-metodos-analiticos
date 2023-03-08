@@ -210,7 +210,7 @@ layout = html.Div([
             dbc.Row([
                 dbc.Col(
                     dcc.Markdown(
-                        "$\\mu$: é a média populacional;",
+                        "$\\mu$: é a média populacional (parâmetro de localização);",
                         mathjax=True
                         ), style={"textIndent": "2em"}
                 ),
@@ -218,7 +218,7 @@ layout = html.Div([
             dbc.Row([
                 dbc.Col(
                     dcc.Markdown(
-                        "$\\sigma$: é o desvio padrão populacional;",
+                        "$\\sigma$: é o desvio padrão populacional (parâmetro de escala);",
                         mathjax=True
                         ), style={"textIndent": "2em"}
                 ),
@@ -232,7 +232,11 @@ layout = html.Div([
                 dbc.Col(
                     dbc.Row([
                         dbc.Col(
-                            html.Label("Média:"), width="auto", align="center"
+                            dcc.Markdown(
+                                "$\\mu =$",
+                                mathjax=True
+                                ),
+                            width="auto", align="center"
                         ),
                         dbc.Col([
                             dbc.Row(
@@ -243,7 +247,11 @@ layout = html.Div([
                                 ),
                             ]),
                         dbc.Col(
-                            html.Label("Desvio padrão"), width="auto", align="center"
+                            dcc.Markdown(
+                                "$\\sigma =$",
+                                mathjax=True
+                                ),
+                            width="auto", align="center"
                         ),
                         dbc.Col([
                             dbc.Row(
@@ -306,7 +314,32 @@ layout = html.Div([
             )
         ])
     ], justify="center",),
-
+    html.Hr(style={"paddingTop": "25px", "paddingBottom": "25px"}),
+    dbc.Row(
+        dbc.Col(
+            html.H5("Referências")
+        )
+    ),
+    dbc.Row(
+        dbc.Col(
+            html.Ul([
+                html.Li([
+                    html.Span("NIST/SEMATECH e-Handbook of Statistical Methods (2012), "),
+                    html.A("http://www.itl.nist.gov", href="https://doi.org/10.18434/M32189"),
+                    html.Span(", "),
+                    html.A("Normal Distribution", href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm"),
+                    html.Span(". Acesso em 02/02/2023.")
+                ]),
+                html.Li([
+                    html.Span("Virtanen, P., Gommers, R., Oliphant, T.E. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nat Methods 17, 261–272 (2020). DOI: "),
+                    html.A("10.1038/s41592-019-0686-2", href="https://doi.org/10.1038/s41592-019-0686-2"),
+                    html.Span(", "),
+                    html.A("scipy.stats.norm", href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html"),
+                    html.Span(". Acesso em 02/02/2023.")
+                ])
+            ])
+        )
+    ),
 
 ],)
 
