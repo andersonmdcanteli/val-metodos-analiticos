@@ -1,9 +1,8 @@
-from dash import dcc, html
+from dash import html
 import dash_bootstrap_components as dbc
-import dash_extensions as de
 
-url_loties = "https://assets6.lottiefiles.com/packages/lf20_gp8xcujl.json"
-options_lotties = dict(loop=True, autoplay=True, rendererSettings=dict(preserveAspectRatio='xMidYMid slice'))
+
+
 
 
 
@@ -13,26 +12,36 @@ layout = html.Div([
             html.H2("Home page"),
         ), style={"text-align": 'center'}, className="title_spacing",
     ),
-    dbc.Row([
-        dbc.Col([
-            html.P([
-                # "Esta aplicação faz parte de um projeto educacional de estatistica para pesquisadores, mas ela é apenas uma amostra de um dashboard interativo desenvolvido para treinamento de estatística básica."
-            ], style={"textAlign": 'justify'}, className="my_spacing"),
-        ]),
-    ]),
-    # dbc.Row([
-    #     dbc.Col([
-    #         html.P([
-    #             "Clique ",
-    #             html.A("aqui", href="/estatistica-basica"),
-    #             " para acessar o conteúdo da página."
-    #         ], style={"textAlign": 'justify'}, className="my_spacing"),
-    #     ]),
-    # ]),
     dbc.Row(
         dbc.Col(
-            html.Div(de.Lottie(options=options_lotties, width="50%", height="50%", url=url_loties))
-        )
+            html.H4("Distribuições:")
+        ),
+        style={"paddingTop": "100px"}
     ),
+    dbc.Row(
+        dbc.Col([
+            html.Ul([
+                html.Li([
+                    html.A("Distribuição Normal", href="/normal-distribution"),
+                    html.Span(";")
+                ]),
+                html.Li([
+                    html.A("Distribuição t de Student", href="/t-student-distribution"),
+                    html.Span(";")
+                ]),
+                html.Li([
+                    html.A("Distribuição Exponencial", href="/exponential-distribution"),
+                    html.Span(";")
+                ]),
+                html.Li([
+                    html.A("Distribuição Uniforme", href="/uniform-distribution"),
+                    html.Span(";")
+                ]),
+            ])
+        ])
+    ),
+    dbc.Row(
+        style={"paddingTop": "300px"}
+    )
 
 ])
