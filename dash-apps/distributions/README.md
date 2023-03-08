@@ -12,7 +12,7 @@ Cada distribuição é apresentada em uma página diferente, sendo possível alt
 <br>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/andersonmdcanteli/dash-apps/main/prob-normal-plot/readme_images/fig1.png?token=GHSAT0AAAAAAB4J5FZOOQYBCRBC2LJHBIV6ZAAX4HQ" alt="screenshot da tela do dahsboard com dados genéricos">
+<img src="https://raw.githubusercontent.com/andersonmdcanteli/val-metodos-analiticos/main/dash-apps/distributions/assets/readme/normal_distribution.png" alt="screenshot da tela com a distribuição Normal padrão">
 </p>
 
 <br>
