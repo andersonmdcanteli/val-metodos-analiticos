@@ -168,8 +168,6 @@ layout = html.Div([
                     lg = 10
                 ),
             ], justify="center",),
-
-
             dbc.Row([
                 dbc.Col(
                     html.H5("Amostra:"), width="auto", align="center",
@@ -187,10 +185,71 @@ layout = html.Div([
                 ),
             ], style={"paddingTop": "15px", "paddingBottom": "15px"}),
 
-
         ],lg = 8),
         # Inputs para os dados
         dbc.Col([
+            dbc.Row([
+                dbc.Col(
+                    html.H4(
+                        dcc.Markdown(
+                            "$f \\left( x \\right) = \\frac{1}{\\beta} e^{- \\left( x- \\mu \\right)/ \\beta}$",
+                            mathjax=True
+                            )
+                    ), style={"textAlign": "center"}
+                ),
+            ]),
+            dbc.Row([
+                dbc.Col([
+                    dbc.Row(
+                        dbc.Col(
+                            html.Label("onde:")
+                        ),
+                    ),
+                    dbc.Row(
+                        dbc.Col([
+                            html.Ul([
+                                html.Li(
+                                    dcc.Markdown(
+                                        "$\\mu$: é o parâmetro de localização;",
+                                        mathjax=True
+                                        )
+                                ),
+                                html.Li(
+                                    dcc.Markdown(
+                                        "$\\beta$: é o parâmetro de escala;",
+                                        mathjax=True
+                                        )
+                                ),
+                            ])
+                        ])
+                    ),
+                ], lg=8),
+                dbc.Col([
+                    dbc.Row(
+                        dbc.Col(
+                            html.Label("para:")
+                        ),
+                    ),
+                    dbc.Row(
+                        dbc.Col([
+                            html.Ul([
+                                html.Li(
+                                    dcc.Markdown(
+                                        "$x \\geq \\mu$",
+                                        mathjax=True
+                                        )
+                                ),
+                                html.Li(
+                                    dcc.Markdown(
+                                        "$\\beta > 0$",
+                                        mathjax=True
+                                        )
+                                ),
+                            ])
+                        ])
+                    ),
+                ],),
+            ]),
             dbc.Row(
                 dbc.Col(
                     html.H5("Parâmetros da distribuição")
@@ -200,7 +259,11 @@ layout = html.Div([
                 dbc.Col(
                     dbc.Row([
                         dbc.Col(
-                            html.Label("Média:"), width="auto", align="center"
+                            dcc.Markdown(
+                                "$\\mu =$",
+                                mathjax=True
+                                ),
+                            width="auto", align="center"
                         ),
                         dbc.Col([
                             dbc.Row(
@@ -211,7 +274,11 @@ layout = html.Div([
                                 ),
                             ]),
                         dbc.Col(
-                            html.Label("Desvio padrão"), width="auto", align="center"
+                            dcc.Markdown(
+                                "$\\beta =$",
+                                mathjax=True
+                                ),
+                            width="auto", align="center"
                         ),
                         dbc.Col([
                             dbc.Row(
@@ -224,7 +291,7 @@ layout = html.Div([
 
                         ],
                     ),
-                    lg = 10
+                    lg = 10,
                 ),
             ], justify="center",),
             html.Div([
@@ -274,6 +341,32 @@ layout = html.Div([
             )
         ])
     ], justify="center",),
+    html.Hr(style={"paddingTop": "25px", "paddingBottom": "25px"}),
+    dbc.Row(
+        dbc.Col(
+            html.H5("Referências")
+        )
+    ),
+    dbc.Row(
+        dbc.Col(
+            html.Ul([
+                html.Li([
+                    html.Span("NIST/SEMATECH e-Handbook of Statistical Methods (2012), "),
+                    html.A("http://www.itl.nist.gov", href="https://doi.org/10.18434/M32189"),
+                    html.Span(", "),
+                    html.A("Exponential Distribution", href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda3667.htm"),
+                    html.Span(". Acesso em 02/02/2023.")
+                ]),
+                html.Li([
+                    html.Span("Virtanen, P., Gommers, R., Oliphant, T.E. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nat Methods 17, 261–272 (2020). DOI: "),
+                    html.A("10.1038/s41592-019-0686-2", href="https://doi.org/10.1038/s41592-019-0686-2"),
+                    html.Span(", "),
+                    html.A("scipy.stats.expo", href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.expon.html#scipy.stats.expon"),
+                    html.Span(". Acesso em 02/02/2023.")
+                ])
+            ])
+        )
+    ),
 
 
 ],)
@@ -355,7 +448,7 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
 
 
     if not isinstance(loc, numbers.Number):
-        text = "A média deve ser um valor numérico!"
+        text = "O parâmetro de localização (μ) deve ser numérico!"
         dica = html.Div([
             html.P("O separador de casas decimais é definido pela sua região (seu país)."),
         ])
@@ -363,7 +456,7 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
         return no_update, alert
 
     if not isinstance(scale, numbers.Number):
-        text = "O desvio padrão deve ser um valor numérico!"
+        text = "O parâmetro de escala (β) deve ser um valor numérico!"
         dica = html.Div([
             html.P("O separador de casas decimais é definido pela sua região (seu país)."),
         ])
@@ -372,7 +465,7 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, size, random, switch):
 
 
     if scale <= 0:
-        text = "O desvio padrão deve ser maior do que zero (0)"
+        text = "O parâmetro de escala (β) deve ser maior do que zero (0)"
         alert = distfuncs.make_alert(text)
         return no_update, alert
 
