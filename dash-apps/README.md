@@ -19,6 +19,6 @@ Instale todas as dependências através do `requirements.txt`:
 
 > pip install -r requirements.txt
 
-Utilize um ambiente virtual com `python == 3.9.0`.
+Utilize um ambiente virtual com `python == 3.9.10`.
 
 Após instalar as dependências, entre na pasta do dashborad desejado e execute o arquivo `app.py` para inicializar o servidor. O dashborad poderá ser visualizado em `http://127.0.0.1:8050/`.
