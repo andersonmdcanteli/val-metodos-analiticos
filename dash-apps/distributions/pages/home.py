@@ -49,6 +49,10 @@ layout = html.Div([
                     html.A("Distribuição Laplace", href="/laplace-distribution"),
                     html.Span(";")
                 ]),
+                html.Li([
+                    html.A("Distribuição Chi2", href="/chi2-distribution"),
+                    html.Span(";")
+                ]),
             ])
         ])
     ),

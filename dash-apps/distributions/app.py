@@ -1,7 +1,7 @@
 from dash import Dash, dcc, html, Input, Output, callback
 from pages import home, about, page_not_found, footer
 from pages import normal_distribution, exponential_distribution, uniform_distribution, t_distribution, gamma_distribution, beta_distribution
-from pages import laplace_distribution
+from pages import laplace_distribution, chi2_distribution
 from datetime import date
 import dash_bootstrap_components as dbc
 from datasets import frases
@@ -29,7 +29,8 @@ navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Normal", href="/normal-distribution")),
         dbc.NavItem(dbc.NavLink("Gamma", href="/gamma-distribution")),
-        dbc.NavItem(dbc.NavLink("Laplace", href="/laplace-distribution")),        
+        dbc.NavItem(dbc.NavLink("Chi2", href="/chi2-distribution")),        
+        dbc.NavItem(dbc.NavLink("Laplace", href="/laplace-distribution")),
         dbc.NavItem(dbc.NavLink("Beta", href="/beta-distribution")),
         dbc.NavItem(dbc.NavLink("Exponencial", href="/exponential-distribution")),
         dbc.NavItem(dbc.NavLink("Uniform", href="/uniform-distribution")),
@@ -77,9 +78,10 @@ def display_page(pathname):
         return beta_distribution.layout
     elif pathname == "/laplace-distribution":
         return laplace_distribution.layout
-
-    # elif pathname == "/laplace-distribution":
-    #     return laplace_distribution.layout
+    elif pathname == "/chi2-distribution":
+        return chi2_distribution.layout
+    # elif pathname == "/chi2-distribution":
+    #     return chi2_distribution.layout
 
     elif pathname == '/home':
         return home.layout
