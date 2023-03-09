@@ -1,6 +1,6 @@
 from dash import Dash, dcc, html, Input, Output, callback
-from pages import home, about, page_not_found, normal_distribution, exponential_distribution, uniform_distribution, t_distribution
-from pages import footer
+from pages import home, about, page_not_found, footer
+from pages import normal_distribution, exponential_distribution, uniform_distribution, t_distribution, gamma_distribution
 from datetime import date
 import dash_bootstrap_components as dbc
 from datasets import frases
@@ -27,9 +27,10 @@ server = app.server
 navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Normal", href="/normal-distribution")),
+        dbc.NavItem(dbc.NavLink("Gamma", href="/gamma-distribution")),
         dbc.NavItem(dbc.NavLink("Exponencial", href="/exponential-distribution")),
         dbc.NavItem(dbc.NavLink("Uniform", href="/uniform-distribution")),
-        dbc.NavItem(dbc.NavLink("t-Student", href="/t-student-distribution")),           
+        dbc.NavItem(dbc.NavLink("t-Student", href="/t-student-distribution")),
         dbc.NavItem(dbc.NavLink(
                         html.I(className="fas fa-mug-hot", style={"color": 'yellow'}),
                         href="/about")),
@@ -67,9 +68,12 @@ def display_page(pathname):
         return uniform_distribution.layout
     elif pathname == "/t-student-distribution":
         return t_distribution.layout
+    elif pathname == "/gamma-distribution":
+        return gamma_distribution.layout
 
-    # elif pathname == "/uniform-distribution":
-    #     return uniform_distribution.layout
+
+    # elif pathname == "/gamma-distribution":
+    #     return gamma_distribution.layout
 
     elif pathname == '/home':
         return home.layout
