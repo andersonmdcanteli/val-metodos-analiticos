@@ -37,6 +37,10 @@ layout = html.Div([
                     html.A("Distribuição Uniforme", href="/uniform-distribution"),
                     html.Span(";")
                 ]),
+                html.Li([
+                    html.A("Distribuição Gamma", href="/gamma-distribution"),
+                    html.Span(";")
+                ]),
             ])
         ])
     ),
