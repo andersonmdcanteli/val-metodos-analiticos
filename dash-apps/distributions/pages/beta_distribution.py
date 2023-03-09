@@ -551,11 +551,11 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, shape_a, shape_b, size, 
         alert = distfuncs.make_alert(text, dica)
         return no_update, alert
 
-
-    if shape_b <= 0:
-        text = "O parâmetro de forma (b) deve ser maior do que zero (0)"
+    if shape_a <= 0:
+        text = "O parâmetro de forma (p) deve ser maior do que zero (0)"
         alert = distfuncs.make_alert(text)
         return no_update, alert
+
 
     if not isinstance(shape_b, numbers.Number):
         text = "O parâmetro de forma (b) deve ser um valor numérico!"
@@ -565,11 +565,11 @@ def update_plot(x_min, x_max, y_min, y_max, loc, scale, shape_a, shape_b, size, 
         alert = distfuncs.make_alert(text, dica)
         return no_update, alert
 
-
-    if shape_a <= 0:
-        text = "O parâmetro de forma (p) deve ser maior do que zero (0)"
+    if shape_b <= 0:
+        text = "O parâmetro de forma (b) deve ser maior do que zero (0)"
         alert = distfuncs.make_alert(text)
         return no_update, alert
+
 
 
     if not isinstance(size, numbers.Number):
