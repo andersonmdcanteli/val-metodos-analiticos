@@ -62,18 +62,18 @@ def make_leverage_plot(concentration, leverage, n_param=2, mild=2, extreme=3):
     plt.show()
     
     
-def make_f_distribution_plot(Fcalc, gl_numerator, gl_denominator, alpha=0.05):
+def make_f_distribution_plot(Fcalc, p_valor, gl_numerator, gl_denominator, alpha=0.05):
     
     Ftab = stats.f.ppf(1-alpha, gl_numerator, gl_denominator)
     
     # Verificando qual é o maior valor para adaptar o intervalo do eixo x
     if Fcalc > Ftab:
-        x_max = Fcalc*1.05
+        x_max = Fcalc*1.05 + 1
     else:
         x_max = Ftab*1.05 + 5
 
     # obtendo valores de x para o gráfico
-    x = np.linspace(0, int(x_max), 1000)
+    x = np.linspace(0, x_max, 1000)
 
     # criando uma instância para a distribuição F com grau de liberdade do teste
     f1 = stats.f(gl_numerator, gl_denominator, 0)
@@ -82,12 +82,12 @@ def make_f_distribution_plot(Fcalc, gl_numerator, gl_denominator, alpha=0.05):
     # criando o canvas
     plt.figure(figsize=(6, 3))
     # adicionando a linha com valores teórios
-    legend = '$gl_{1}$ = ' + str(gl_numerator) + ' $gl_{2}$ = ' + str(gl_denominator)
+    legend = '$gl_{1}$ = ' + str(gl_numerator) + '; $gl_{2}$ = ' + str(gl_denominator)
     plt.plot(x, f1.pdf(x), label = legend, color = 'black')
 
     # adicionando a linha com o valor crítico
     legend = '$F_{crítico} = $' + str(round(Ftab, 2))
-    plt.axvline(Ftab, 0, 1, label=legend, color='blue')
+    plt.axvline(Ftab, 0, 1, label=legend, color='blue', ls="--")
 
     # adicionando o ponto com o valor da estatística do teste
     legend = '$F_{calc} = $' + str(round(Fcalc, 2))
@@ -95,14 +95,19 @@ def make_f_distribution_plot(Fcalc, gl_numerator, gl_denominator, alpha=0.05):
 
     # preenchendo a área do p-valor
     x = np.linspace(Fcalc, int(x_max), 1000)
-    plt.fill_between(x, f1.pdf(x), label = '$probabilidade$', color = 'salmon')
+    if p_valor < 0.0001:
+        label = "$p-valor<0.001$"
+    else:
+        label = "$p-valor=" + f"{round(p_valor, 3)}" + "$"
+        
+    plt.fill_between(x, f1.pdf(x), label = label, color = 'salmon', alpha=.5)
 
     # ajustando o gráfico
     plt.xlim(-.1, x_max + 0.1)
     plt.ylim(bottom=0.0)
-    plt.xlabel('F')
+    plt.xlabel('$F(x)$')
     plt.ylabel('Densidade')
-    plt.legend()
+    plt.legend(fontsize=8)
     plt.show() 
     
     
